@@ -1,0 +1,167 @@
+{%- assign current_product = product -%}
+{%- assign current_collection = collection | default: product.collections.first -%}
+{%- assign filters = current_collection.filters -%}
+{%- assign max_items = section.settings.max_items -%}
+
+<div class="find-more-section" data-section-id="{{ section.id }}">
+  <h2 class="section-heading">FIND MORE LIKE THIS IN</h2>
+
+  <div class="attribute-display">
+
+    {%- comment -%} Price Range Filter (correct format) {%- endcomment -%}
+    {%- assign price_filter = filters | where: "param_name", "filter.v.price" | first -%}
+    {%- if price_filter and section.settings.show_price -%}
+      <div class="attribute-group price-group">
+        <div class="attribute-values">
+          <a href="{{ current_collection.url }}?filter.v.price.gte={{ current_product.price_min | divided_by: 100 }}&filter.v.price.lte={{ current_product.price_max | divided_by: 100 }}" class="attribute-value">
+            {{ current_product.price_min | money }} - {{ current_product.price_max | money }}
+          </a>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Only show real filters from the collection {%- endcomment -%}
+    {%- for filter in filters -%}
+      {%- unless filter.param_name == "filter.v.price" or filter.values.size == 0 -%}
+        {%- assign is_color_filter = false -%}
+        {%- if filter.param_name contains 'color' or filter.param_name contains 'colour' or filter.label contains 'Color' -%}
+          {%- assign is_color_filter = true -%}
+        {%- endif -%}
+
+        <div class="attribute-group">
+          <div class="attribute-values {% if is_color_filter %}color-values{% endif %}">
+            {%- for value in filter.values limit: max_items -%}
+              <a href="{{ current_collection.url }}?{{ filter.param_name }}={{ value.value | url_encode }}" 
+                 class="attribute-value{% if is_color_filter %} color-swatch{% endif %}"
+                 {% if is_color_filter %}
+                   style="background-color: {{ value.value | handle }}; color: {% if value.value contains 'white' or value.value contains 'cream' %}black{% else %}white{% endif %};"
+                 {% endif %}>
+                {{ value.label }}
+              </a>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endunless -%}
+    {%- endfor -%}
+
+  </div>
+</div>
+
+<style>
+  .find-more-section {
+    padding: 2rem 0;
+    margin: 3rem 0;
+    text-align: center;
+  }
+
+  .section-heading {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .attribute-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .attribute-group {
+    display: inline-block;
+  }
+
+  .attribute-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .attribute-value {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f5f5f5;
+    color: #333;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border: 1px solid #e1e1e1;
+  }
+
+  .attribute-value:hover {
+    background: {{ settings.color_primary | default: '#000' }};
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .color-values {
+    gap: 0.8rem;
+  }
+
+  .color-swatch {
+    position: relative;
+    padding-left: 2.2rem;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .color-swatch:before {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+  }
+
+  @media (max-width: 749px) {
+    .attribute-display {
+      gap: 0.8rem;
+    }
+    
+    .attribute-value {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Filters (Strict)",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Max items per filter",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price range",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Filters (Strict)",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

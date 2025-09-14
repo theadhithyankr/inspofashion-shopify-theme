@@ -1,0 +1,482 @@
+{% stylesheet %}
+  /* Mobile Bottom Navigation */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    z-index: 9999;
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    height: 70px;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-bottom-nav.hide {
+    transform: translateY(100%);
+  }
+
+  /* Body spacing for navigation */
+  body.nav-space-active {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-bottom-nav .nav-item {
+    position: relative;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-primary-subdued);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 48px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .mobile-bottom-nav .nav-item:hover {
+    color: var(--color-primary);
+  }
+
+  .mobile-bottom-nav .nav-item.active {
+    color: var(--color-primary);
+  }
+
+  .mobile-bottom-nav .nav-item .icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 3px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mobile-bottom-nav .nav-item.shop-item {
+    transform: translateY(-20%);
+    background: var(--color-primary);
+    color: var(--color-background);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+  }
+
+  .mobile-bottom-nav .nav-item.shop-item:hover {
+    color: var(--color-background);
+    transform: translateY(-22%);
+  }
+
+  .mobile-bottom-nav .nav-item.shop-item .icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    margin-bottom: 2px;
+  }
+
+  .mobile-bottom-nav .nav-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    position: relative;
+  }
+
+  .mobile-bottom-nav .nav-item .badge {
+    position: absolute;
+    top: -2px;
+    right: 2px;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Contact Popup - Clean Atelier Style */
+  .contact-popup {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+}
+.contact-popup.active {
+  opacity: 1;
+  visibility: visible;
+}
+.contact-popup-content {
+  background: var(--color-background);
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  padding: 32px 24px calc(24px + env(safe-area-inset-bottom));
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.contact-popup.active .contact-popup-content {
+  transform: translateY(0);
+}
+.contact-popup-handle {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.contact-popup-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  text-align: center;
+  color: var(--color-foreground);
+}
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-option {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: var(--color-background-alt, var(--color-background));
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--color-foreground);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+  .contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.contact-option-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 16px;
+  flex-shrink: 0;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+  .contact-option-icon.whatsapp {
+    fill: #25D366;
+   }
+
+  .contact-option-icon.instagram {
+     stroke: #E1306C;
+    fill: none;
+   }
+
+  .contact-option-icon.phone {
+    fill: #007bff;
+    }
+
+  /* Hide on desktop */
+  @media (min-width: 768px) {
+    .mobile-bottom-nav {
+      display: none;
+    }
+    
+    body.nav-space-active {
+      padding-bottom: 0;
+    }
+  }
+{% endstylesheet %}
+
+<nav class="mobile-bottom-nav color-{{ settings.mobile_nav_color_scheme }}" role="navigation" aria-label="Mobile navigation">
+  <div class="nav-item-wrapper">
+    <a href="/" class="nav-item" aria-label="Home">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+      <span class="label">{{ settings.mobile_nav_home_label | default: 'Home' }}</span>
+    </a>
+  </div>
+
+  <div class="nav-item-wrapper">
+    <div class="nav-item contact-trigger" aria-label="Contact">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span class="label">{{ settings.mobile_nav_contact_label | default: 'Contact' }}</span>
+    </div>
+  </div>
+
+  <div class="nav-item-wrapper">
+    <a href="{{ settings.mobile_nav_shop_url | default: '/collections/all' }}" class="nav-item shop-item" aria-label="Shop">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32" fill="currentColor">
+         <path d="M160 160V128a96 96 0 01192 0v32h96l-48 320H112L64 160h96zm32 0h128v-32a64 64 0 00-128 0v32z"/>
+         </svg>
+      <span class="label">{{ settings.mobile_nav_shop_label | default: 'Shop' }}</span>
+    </a>
+  </div>        
+
+  <div class="nav-item-wrapper">
+    <a href="/cart" class="nav-item" aria-label="Cart">
+      <svg class="icon" viewBox="0 0 24 24">
+        <circle cx="8" cy="21" r="1"/>
+        <circle cx="19" cy="21" r="1"/>
+        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+      </svg>
+      <span class="label">{{ settings.mobile_nav_cart_label | default: 'Cart' }}</span>
+      <span class="badge" id="cart-badge" style="display: none;">0</span>
+    </a>
+  </div>
+
+  <div class="nav-item-wrapper">
+    <a href="/account" class="nav-item" aria-label="Account">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span class="label">{{ settings.mobile_nav_account_label | default: 'Account' }}</span>
+    </a>
+  </div>
+</nav>
+
+<div class="contact-popup" id="contactPopup">
+  <div class="contact-popup-content">
+    <div class="contact-popup-handle" id="closePopupHandle" aria-label="Close Contact Popup"></div>
+    <h3 class="contact-popup-title">Get in Touch</h3>
+    <div class="contact-options">
+        <a href="https://wa.me/{{ settings.whatsapp_number | default: '1234567890' }}" class="contact-option" target="_blank" rel="noopener">
+         <svg class="contact-option-icon whatsapp" width="24" height="24" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      <a href="https://instagram.com/{{ settings.instagram_username | default: 'yourstore' }}" class="contact-option" target="_blank" rel="noopener">
+       <svg class="contact-option-icon instagram" viewBox="0 0 24 24" >
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        <span>Instagram</span>
+      </a>
+      <a href="tel:{{ settings.phone_number | default: '+1234567890' }}" class="contact-option">
+         <svg class="contact-option-icon phone" viewBox="0 0 24 24" >
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.76 19.76 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.76 19.76 0 0 1 2.08 4.18 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.13.95.41 1.87.83 2.73a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.86.42 1.78.7 2.73.83a2 2 0 0 1 1.72 2z"/>
+        </svg>
+        <span>Call Us</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  (function() {
+    const mobileNav = document.querySelector('.mobile-bottom-nav');
+    const navbarHeight = 70;
+    let lastScrollPosition = 0;
+    const scrollThreshold = 15;
+    let ticking = false;
+    
+    const contactTrigger = document.querySelector('.contact-trigger');
+    const contactPopup = document.getElementById('contactPopup');
+    const closePopup = document.getElementById('closePopupHandle');
+
+    function setActiveLink() {
+      const currentPath = window.location.pathname;
+      document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(item => {
+        const href = item.getAttribute('href');
+        if (href && (currentPath === href || (href !== '/' && currentPath.startsWith(href)))) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+    
+    function setupCartBadge() {
+      const cartBadge = document.getElementById('cart-badge');
+      
+      // Try multiple selectors for cart count
+      const cartSelectors = [
+        '.cart-bubble__text-count',
+        '[data-cart-count]',
+        '.cart-count',
+        '#cart-count'
+      ];
+      
+      let cartElement = null;
+      for (const selector of cartSelectors) {
+        cartElement = document.querySelector(selector);
+        if (cartElement) break;
+      }
+      
+      if (cartBadge && cartElement) {
+        const updateBadge = () => {
+          const count = parseInt(cartElement.textContent.trim() || cartElement.dataset.cartCount || '0') || 0;
+          if (count > 0) {
+            cartBadge.textContent = count > 99 ? '99+' : count;
+            cartBadge.style.display = 'flex';
+          } else {
+            cartBadge.style.display = 'none';
+          }
+        };
+        
+        updateBadge();
+        
+        const observer = new MutationObserver(updateBadge);
+        observer.observe(cartElement, { 
+          childList: true, 
+          subtree: true, 
+          attributes: true,
+          attributeFilter: ['data-cart-count']
+        });
+      }
+    }
+
+    function handleScroll() {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const bottomOfPage = currentScrollPosition + windowHeight >= documentHeight - navbarHeight;
+      
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          if (Math.abs(currentScrollPosition - lastScrollPosition) < scrollThreshold) {
+            ticking = false;
+            return;
+          }
+          
+          // Always maintain body spacing
+          document.body.classList.add('nav-space-active');
+          
+          // Show navbar when at bottom of page or top, hide when scrolling down in middle
+          if (currentScrollPosition <= scrollThreshold || bottomOfPage) {
+            const wasHidden = mobileNav.classList.contains('hide');
+            mobileNav.classList.remove('hide');
+            
+            // Auto-scroll when navbar appears at bottom to prevent content being covered
+            if (wasHidden && bottomOfPage) {
+              // Small delay to ensure navbar animation completes
+              setTimeout(() => {
+                const newScrollPosition = document.documentElement.scrollHeight - window.innerHeight + navbarHeight;
+                window.scrollTo({
+                  top: newScrollPosition,
+                  behavior: 'smooth'
+                });
+              }, 100);
+            }
+          } else if (currentScrollPosition > lastScrollPosition && currentScrollPosition > scrollThreshold) {
+            mobileNav.classList.add('hide');
+          } else {
+            mobileNav.classList.remove('hide');
+          }
+
+          lastScrollPosition = currentScrollPosition;
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    }
+    
+    function openContactPopup() {
+      contactPopup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // Trap focus in popup
+      const firstFocusable = contactPopup.querySelector('button, a');
+      if (firstFocusable) firstFocusable.focus();
+    }
+    
+    function closeContactPopup() {
+      contactPopup.classList.remove('active');
+      document.body.style.overflow = '';
+      // Return focus to contact trigger
+      if (contactTrigger) contactTrigger.focus();
+    }
+    
+    // Keyboard navigation
+    function handleKeyDown(e) {
+      if (e.key === 'Escape' && contactPopup.classList.contains('active')) {
+        closeContactPopup();
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      setActiveLink();
+      setupCartBadge();
+      
+      // Event listeners
+      if (contactTrigger) contactTrigger.addEventListener('click', openContactPopup);
+      if (closePopup) closePopup.addEventListener('click', closeContactPopup);
+      
+      // Popup interactions
+      contactPopup.addEventListener('click', function(e) {
+        if (e.target === contactPopup) closeContactPopup();
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', handleKeyDown);
+      
+      // Initialize for mobile
+      if (window.innerWidth < 768) {
+        document.body.classList.add('nav-space-active');
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+      
+      // Handle resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth < 768) {
+          document.body.classList.add('nav-space-active');
+          window.addEventListener('scroll', handleScroll, { passive: true });
+        } else {
+          window.removeEventListener('scroll', handleScroll);
+          mobileNav.classList.remove('hide');
+          document.body.classList.remove('nav-space-active');
+        }
+      });
+    });
+    
+    // Handle cart updates from Shopify events
+    document.addEventListener('cart:updated', setupCartBadge);
+    if (typeof window.Shopify !== 'undefined') {
+      document.addEventListener('shopify:cart:update', setupCartBadge);
+    }
+  })();
+</script>
