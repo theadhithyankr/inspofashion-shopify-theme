@@ -4,26 +4,6 @@
 <div
   class="
     section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}
-    {% if section.settings.section_height != "" %} {{ section.settings.section_height | prepend: "section--height-" }}{% endif %}
-  "
->
-  {% render 'background-media',
-    background_media: section.settings.background_media,
-    background_video: section.settings.video,
-    background_video_position: section.settings.video_position,
-    background_image: section.settings.background_image,
-    background_image_position: section.settings.background_image_position
-  %}
-
-  <div
-    class="
-      spacing-style
-      layout-panel-flex
-      layout-panel-flex--{{ section.settings.content_direction }}
-      section-content-wrapper
-      {% if section.settings.vertical_on_mobile %} mobile-column{% endif %}
-    "
-    style="
       {% render 'layout-panel-style', settings: section.settings %}
       {%  render 'spacing-style', settings: section.settings %}
     "
@@ -61,152 +41,22 @@
               📍 {{ section.settings.map_link_text | default: 'Find Us on Google Maps' }}
             </a>
           </div>
-        {% elsif section.settings.map_type == 'embed' %}
-          <!-- Dual Location Maps - Simple Styling -->
-          <div style="text-align: center; margin-bottom: 20px;">
-            <h3 style="margin: 0 0 10px 0; font-size: 1.4em;">📍 Our Locations</h3>
-            <p style="margin: 0; color: #666; font-size: 14px;">Visit us at either of our locations</p>
-          </div>
-          
-          <!-- Responsive Container -->
-          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 1200px; margin: 0 auto;">
-            <style>
-              @media (min-width: 768px) {
-                .dual-maps-container {
-                  flex-direction: row !important;
-                  gap: 30px !important;
-                }
-                .map-item {
-                  flex: 1 !important;
-                }
-              }
-            </style>
-            <div class="dual-maps-container" style="display: flex; flex-direction: column; gap: 20px;">
-              
-              <!-- Retail Store Map -->
-              <div class="map-item" style="flex: 1;">
-                <div style="text-align: center; margin-bottom: 15px;">
-                  <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: #333;">🏪 Ammus - Retail Store</h4>
-                </div>
-                <div style="border-radius: 8px; border: 1px solid #ccc; overflow: hidden;">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.656153614995!2d76.2431812749119!3d10.18717758992801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b081adc0000001d%3A0x777e70968f1f18da!2sAmmus!5e1!3m2!1sen!2sin!4v1757830263539!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="{{ section.settings.map_height }}px" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                  </iframe>
+        {% elsif section.settings.map_type == 'embed' or section.settings.map_type == 'dual' %}
+          <div class="footer-maps-wrapper">
+            <div class="footer-maps-heading">Visit us at either of our locations</div>
+            <div class="maps-inner">
+              <div class="map-item">
+                <h4 class="map-title">🏪 Ammus - Retail Store</h4>
+                <div class="map-frame">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.656153614995!2d76.2431812749119!3d10.18717758992801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b081adc0000001d%3A0x777e70968f1f18da!2sAmmus!5e1!3m2!1sen!2sin!4v1757830263539!5m2!1sen!2sin" width="100%" height="{{ section.settings.map_height }}px" style="border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
               </div>
-
-              <!-- Manufacturing Center Map -->
-              <div class="map-item" style="flex: 1;">
-                <div style="text-align: center; margin-bottom: 15px;">
-                  <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: #333;">🏭 Ammus - Manufacturing Center</h4>
-                </div>
-                <div style="border-radius: 8px; border: 1px solid #ccc; overflow: hidden;">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.538197642866!2d76.27445607491087!3d10.113380689997879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080f32e5041ec3%3A0x3c99096b91a4e244!2sKS%20manufacturing%20unit!5e1!3m2!1sen!2sin!4v1757829608705!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="{{ section.settings.map_height }}px" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                  </iframe>
+              <div class="map-item">
+                <h4 class="map-title">🏭 Ammus - Manufacturing Center</h4>
+                <div class="map-frame">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.538197642866!2d76.27445607491087!3d10.113380689997879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080f32e5041ec3%3A0x3c99096b91a4e244!2sKS%20manufacturing%20unit!5e1!3m2!1sen!2sin!4v1757829608705!5m2!1sen!2sin" width="100%" height="{{ section.settings.map_height }}px" style="border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
               </div>
-              
-            </div>
-          </div>
-          <div style="text-align: center; margin-top: 10px; background: #f8f9fa; padding: 8px; border-radius: 6px;">
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query={{ section.settings.map_address | url_encode }}"
-              target="_blank"
-              style="
-                color: #1a73e8; 
-                text-decoration: none; 
-                font-size: 14px; 
-                font-weight: 500;
-                display: inline-block;
-                padding: 8px 16px;
-                background: white;
-                border-radius: 4px;
-                border: 1px solid #dadce0;
-                transition: all 0.2s;
-              "
-              onmouseover="this.style.background='#f1f3f4'; this.style.borderColor='#1a73e8'"
-              onmouseout="this.style.background='white'; this.style.borderColor='#dadce0'"
-            >
-              �️ Open in Google Maps
-            </a>
-          </div>
-  {% elsif section.settings.map_type == 'dual' %}
-          <!-- Dual Location Maps - Responsive Layout -->
-          <div style="text-align: center; margin-bottom: 20px;">
-            <h3 style="margin: 0 0 10px 0; font-size: 1.4em;">📍 Our Locations</h3>
-            <p style="margin: 0; color: #666; font-size: 14px;">Visit us at either of our locations</p>
-          </div>
-          
-          <!-- Responsive Container: Horizontal on Desktop, Vertical on Mobile -->
-          <div style="
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-          ">
-            <style>
-              @media (min-width: 768px) {
-                .dual-maps-container {
-                  flex-direction: row !important;
-                  gap: 30px !important;
-                }
-                .map-item {
-                  flex: 1 !important;
-                }
-              }
-            </style>
-            <div class="dual-maps-container" style="display: flex; flex-direction: column; gap: 20px;">
-              
-        <!-- Retail Store Map - Fixed Name -->
-              <div class="map-item" style="flex: 1;">
-                <div style="text-align: center; margin-bottom: 15px;">
-          <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: #333;">🏪 Ammus - Retail Store</h4>
-                </div>
-                <div style="border-radius: 8px; border: 1px solid #ccc; overflow: hidden;">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.656153614995!2d76.2431812749119!3d10.18717758992801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b081adc0000001d%3A0x777e70968f1f18da!2sAmmus!5e1!3m2!1sen!2sin!4v1757830263539!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="{{ section.settings.map_height }}px" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                  </iframe>
-                </div>
-              </div>
-
-        <!-- Manufacturing Center Map - Fixed Name -->
-              <div class="map-item" style="flex: 1;">
-                <div style="text-align: center; margin-bottom: 15px;">
-          <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: #333;">🏭 Ammus - Manufacturing Center</h4>
-                </div>
-                <div style="border-radius: 8px; border: 1px solid #ccc; overflow: hidden;">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.538197642866!2d76.27445607491087!3d10.113380689997879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080f32e5041ec3%3A0x3c99096b91a4e244!2sKS%20manufacturing%20unit!5e1!3m2!1sen!2sin!4v1757829608705!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="{{ section.settings.map_height }}px" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                  </iframe>
-                </div>
-              </div>
-              
             </div>
           </div>
         {% endif %}
@@ -616,3 +466,14 @@
   ]
 }
 {% endschema %}
+
+<style>
+  .footer-maps-wrapper {max-width:1200px; margin:0 auto; padding:24px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px;}
+  .footer-maps-heading {text-align:center; font-size:14px; margin-bottom:18px; color:#fff; letter-spacing:.5px; font-weight:500;}
+  .maps-inner {display:flex; flex-direction:column; gap:24px;}
+  @media (min-width: 900px){ .maps-inner {flex-direction:row;} }
+  .map-item {flex:1; display:flex; flex-direction:column; gap:10px;}
+  .map-title {margin:0; font-size:15px; text-align:center; color:#fff; font-weight:600; letter-spacing:.3px;}
+  .map-frame {position:relative; border-radius:10px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.25);} 
+  .map-frame iframe {display:block; width:100%; height:100%;}
+</style>
