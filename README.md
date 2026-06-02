@@ -1,22 +1,27 @@
 # Inspo Fashion Shopify Theme
 
-## Overview
-Ispofashion is a Shopify Liquid theme for an Inspo Fashion storefront. The repository contains theme layouts, sections, snippets, templates, locales, blocks, configuration, and assets for a Shopify storefront experience.
+Shopify Liquid theme for an Inspo Fashion storefront.
 
-## Features
-- Shopify Liquid layout and template structure.
-- Theme sections, snippets, and blocks.
-- Storefront configuration and locale files.
-- Asset pipeline for theme styling and media.
-- Theme editor support through Shopify design mode markup.
+## Key Features
+- Shopify Liquid theme for an Inspo Fashion storefront
+- Theme templates and storefront assets are described as Shopify Liquid work rather than generic web pages.
 
 ## Tech Stack
-- Liquid
-- Shopify theme architecture
-- CSS and storefront assets
+- Shopify Liquid
 
-## Development
-Use Shopify theme tooling to preview or deploy this theme against a Shopify store. The main theme shell is in `layout/theme.liquid`.
+## Project Structure
+- public / assets - static images, icons, manifests, and visual assets.
 
-## Status
-Private Shopify theme project for an Inspo Fashion storefront.
+## Setup and Run
+```bash
+git clone https://github.com/theadhithyankr/inspofashion-shopify-theme.git
+cd inspofashion-shopify-theme
+# Open the source files in your preferred editor and run with the matching local toolchain.
+```
+
+## What This Project Demonstrates
+- Turning a focused product idea into a documented, reviewable repository.
+- Presenting project scope, setup, and technical choices clearly for reviewers and recruiters.
+
+## Repository
+- GitHub: https://github.com/theadhithyankr/inspofashion-shopify-theme
