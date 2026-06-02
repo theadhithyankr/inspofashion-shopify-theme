@@ -1,4 +1,4 @@
-# Ispofashion
+# Inspo Fashion Shopify Theme
 
 ## Overview
 Ispofashion is a Shopify Liquid theme for an Inspo Fashion storefront. The repository contains theme layouts, sections, snippets, templates, locales, blocks, configuration, and assets for a Shopify storefront experience.
