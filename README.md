@@ -29,7 +29,7 @@ The README was written from the repository contents, including its manifest file
 
 ## Project Structure
 
-`	ext
+```text
 .
 |-- assets/accordion-custom.js
 |-- assets/account-login-actions.js
@@ -55,13 +55,13 @@ The README was written from the repository contents, including its manifest file
 |-- assets/focus.js
 |-- assets/global.d.ts
 |-- assets/header.js
-`
+```
 
 ## Setup
 
-`ash
+```bash
 Review the source files in this repository and run them with the matching local toolchain.
-`
+```
 
 ## What This Project Demonstrates
 
